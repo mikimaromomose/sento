@@ -1,10 +1,6 @@
 from django.db.models import Q
 
 from apis.domain.sento.entities import BathTypeEnum
-from apis.infrastructure.sento.repository import (
-    convert_to_bath_entity,
-    convert_to_operating_hour_entity,
-)
 from apis.models import Sento
 from apis.usecases.sento.query_service import ISentoQueryService, SentoListModel
 
@@ -45,9 +41,4 @@ class SentoQueryService(ISentoQueryService):
             walking_time=sento.walking_time,
             address=sento.address,
             operating_hours_remarks=sento.operating_hours_remarks,
-            operating_hours=[
-                convert_to_operating_hour_entity(operating_hour)
-                for operating_hour in sento.operating_hours.all()
-            ],
-            baths=[convert_to_bath_entity(bath) for bath in sento.baths.all()],
         )

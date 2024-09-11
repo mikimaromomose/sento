@@ -1,3 +1,4 @@
+from rest_framework.permissions import AllowAny
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -5,7 +6,9 @@ from rest_framework.views import APIView
 from apis.usecases.sento.usecase import GetSentosUseCase, GetSentosInputDto
 
 
-class SentoView(APIView):
+class SentosView(APIView):
+    permission_classes = [AllowAny]
+
     def get(self, request: Request) -> Response:
         sentos = GetSentosUseCase().execute(
             GetSentosInputDto(

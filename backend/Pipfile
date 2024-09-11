@@ -5,11 +5,16 @@ name = "pypi"
 
 [packages]
 django = "*"
-psycopg2 = "*"
 django-postgres-extra = "*"
 djangorestframework = "*"
 inject = "*"
 dataclasses-json = "*"
+psycopg2-binary = "*"
+djangorestframework-dataclasses = "*"
+dj-rest-auth = "*"
+django-allauth = "*"
+django-cors-headers = "*"
+requests = "*"
 
 [dev-packages]
 pytest = "*"

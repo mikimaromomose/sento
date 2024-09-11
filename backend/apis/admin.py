@@ -1,9 +1,25 @@
 from django.contrib import admin
 
-from apis.models import Sento, OperatingHour, Bath, BathType
+from apis.models import (
+    Sento,
+    OperatingHour,
+    Bath,
+    BathType,
+    UserProfile,
+    Mission,
+    UserMission,
+    UserSentoStatus,
+)
 
 
-# Register your models here.
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = [
+        "user",
+        "title",
+    ]
+
+
 @admin.register(Sento)
 class SentoAdmin(admin.ModelAdmin):
     list_display = [
@@ -28,8 +44,39 @@ class BathAdmin(admin.ModelAdmin):
 
 
 @admin.register(BathType)
-class BathType(admin.ModelAdmin):
+class BathTypeAdmin(admin.ModelAdmin):
     list_display = [
         "bath",
         "type",
+    ]
+
+
+@admin.register(Mission)
+class MissionAdmin(admin.ModelAdmin):
+    list_display = [
+        "sento",
+        "title",
+        "description",
+        "expiration_at",
+    ]
+
+
+@admin.register(UserMission)
+class UserMissionAdmin(admin.ModelAdmin):
+    list_display = [
+        "user",
+        "mission",
+        "is_completed",
+        "completed_at",
+    ]
+
+
+@admin.register(UserSentoStatus)
+class UserSentoStatusAdmin(admin.ModelAdmin):
+    list_display = [
+        "user",
+        "sento",
+        "visit_count",
+        "points",
+        "last_visit_date",
     ]

@@ -12,8 +12,8 @@ class GetSentosInputDto:
     name: str | None
     bath_types: list[BathTypeEnum] | None
     nearest_station: str | None
-    limit: int
-    offset: int
+    limit: int | None
+    offset: int | None
 
 
 @dataclass_json

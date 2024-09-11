@@ -1,6 +1,15 @@
 import uuid
 
+from django.contrib.auth.models import User
 from django.db import models
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    title = models.CharField(max_length=100, blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.username} - Title: {self.title}"
 
 
 class Sento(models.Model):
@@ -60,3 +69,37 @@ class BathType(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     bath = models.ForeignKey(Bath, on_delete=models.CASCADE)
     type = models.IntegerField(choices=BathTypes)
+
+
+class Mission(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    sento = models.ForeignKey(Sento, on_delete=models.CASCADE, related_name="missions")
+    title = models.CharField()
+    description = models.TextField()
+    expiration_at = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return self.title
+
+
+class UserMission(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    mission = models.ForeignKey(Mission, on_delete=models.CASCADE)
+    is_completed = models.BooleanField(default=False)
+    completed_at = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.mission.title}"
+
+
+class UserSentoStatus(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    sento = models.ForeignKey(Sento, on_delete=models.CASCADE)
+    visit_count = models.PositiveIntegerField(default=0)
+    points = models.PositiveIntegerField(default=0)
+    last_visit_date = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.sento.name} - Visits: {self.visit_count} - Points: {self.points}"

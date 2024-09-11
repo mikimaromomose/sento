@@ -71,4 +71,16 @@ class Sento:
     walking_time: int
     address: str
     operating_hours_remarks: str
-    operating_hours: list[OperatingHour]
+
+
+@dataclass(frozen=True)
+class Mission:
+    """
+    ミッション
+    """
+
+    id: uuid.UUID
+    sento_id: uuid.UUID
+    title: str
+    description: str
+    expiration_at: datetime.datetime

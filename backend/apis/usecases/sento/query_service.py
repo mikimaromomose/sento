@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from dataclasses_json import dataclass_json
 
 
-from apis.domain.sento.entities import Sento, Bath, BathTypeEnum
+from apis.domain.sento.entities import Sento, BathTypeEnum
 
 
 @dataclass_json
@@ -12,8 +12,6 @@ class SentoListModel(Sento):
     """
     銭湯一覧モデル
     """
-
-    baths: list[Bath]
 
 
 class ISentoQueryService(ABC):

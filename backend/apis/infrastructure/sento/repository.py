@@ -16,3 +16,15 @@ def convert_to_operating_hour_entity(operating_hour: models.OperatingHour):
         open_time=operating_hour.open_time,
         close_time=operating_hour.close_time,
     )
+
+
+def convert_to_mission_entity(
+    mission: models.Mission,
+) -> entities.Mission:
+    return entities.Mission(
+        id=mission.id,
+        title=mission.title,
+        description=mission.description,
+        sento_id=mission.sento_id,
+        expiration_at=mission.expiration_at,
+    )
