@@ -144,6 +144,20 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 # Django Allauth settings
 SITE_ID = 1
 
+# ソーシャルログインのリダイレクト設定
+LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
+
+# LINEのクライアントIDとクライアントシークレット
+SOCIALACCOUNT_PROVIDERS = {
+    "line": {
+        "APP": {
+            "client_id": os.getenv("LINE_CHANNEL_ID"),
+            "secret": os.getenv("LINE_CHANNEL_SECRET"),
+        }
+    }
+}
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.TokenAuthentication",
@@ -157,6 +171,9 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
+
+# JWTトークンを利用
+REST_USE_JWT = True
 
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True

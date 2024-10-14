@@ -1,32 +1,59 @@
 "use client";
 
-import { useState } from 'react';
-import { TextField, Button, Container, Typography } from '@mui/material';
-import { registerUser } from "@/utils/fetchings";
+import { useState, useEffect } from 'react';
+import { Button, Container, Typography } from '@mui/material';
+import liff from '@line/liff';
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password1: '',
-    password2: '',
-  });
-
   const [message, setMessage] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [profile, setProfile] = useState<{ displayName: string; userId: string } | null>(null);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  useEffect(() => {
+    const initLiff = async () => {
+      try {
+        // LIFFを初期化
+        await liff.init({ liffId: 'mikimaromomose@gmail.com' });
+        if (!liff.isLoggedIn()) {
+          // LINEに未ログインの場合はログインを促す
+          liff.login();
+        } else {
+          // ログイン済みの場合はプロフィール情報を取得
+          const profile = await liff.getProfile();
+          setProfile({ displayName: profile.displayName, userId: profile.userId });
+          setIsLoggedIn(true);
+        }
+      } catch (error) {
+        console.error('LIFF初期化に失敗しました', error);
+      }
+    };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      await registerUser(formData);
-      setMessage('登録に成功しました！');
-    } catch (error) {
-      setMessage('エラーが発生しました。もう一度お試しください。');
+    initLiff();
+  }, []);
+
+  const handleRegister = async () => {
+    if (profile) {
+      try {
+        // サーバー側でユーザー登録を行う（例: DjangoのAPIにリクエストを送る）
+        const res = await fetch('/api/register-line-user', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            userId: profile.userId, // LINEのユーザーID
+            displayName: profile.displayName, // 表示名
+          }),
+        });
+
+        if (res.ok) {
+          setMessage('登録に成功しました！');
+        } else {
+          throw new Error('サーバーエラー');
+        }
+      } catch (error) {
+        setMessage('エラーが発生しました。もう一度お試しください。');
+      }
     }
   };
 
@@ -35,44 +62,28 @@ const Register = () => {
       <Typography variant="h4" align="center" gutterBottom>
         ユーザー登録
       </Typography>
-      <form onSubmit={handleSubmit}>
-        <TextField
-          fullWidth
-          label="メールアドレス"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          margin="normal"
-          required
-        />
-        <TextField
-          fullWidth
-          label="パスワード"
-          type="password"
-          name="password1"
-          value={formData.password1}
-          onChange={handleChange}
-          margin="normal"
-          required
-        />
-        <TextField
-          fullWidth
-          label="パスワード（確認用）"
-          type="password"
-          name="password2"
-          value={formData.password2}
-          onChange={handleChange}
-          margin="normal"
-          required
-        />
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          登録
-        </Button>
-      </form>
+      {isLoggedIn ? (
+        <div>
+          <Typography variant="h6" align="center">
+            {profile?.displayName} さん、ようこそ！
+          </Typography>
+          <Button
+            onClick={handleRegister}
+            variant="contained"
+            color="primary"
+            fullWidth
+          >
+            LINEで登録
+          </Button>
+        </div>
+      ) : (
+        <Typography variant="body1" align="center">
+          LINEログイン中...
+        </Typography>
+      )}
       {message && <Typography color="error">{message}</Typography>}
     </Container>
   );
 };
 
 export default Register;
-
