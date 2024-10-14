@@ -11,6 +11,7 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { motion } from "framer-motion";
+import Loading from "../components/loading";
 
 export default function Sentos() {
   const router = useRouter();
@@ -41,32 +42,7 @@ export default function Sentos() {
 
   // if (loading && !showContent) {
   if (!showContent) {
-    return (
-      <motion.div
-        className="loading-screen"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 1.5 }}
-      >
-        <motion.div
-          animate={{
-            y: [0, -20, 0], // マークが上下に動く
-          }}
-          transition={{
-            duration: 1,
-            repeat: Infinity,
-            repeatType: "loop",
-          }}
-          style={{
-            fontSize: "50px",
-            textAlign: "center",
-          }}
-        >
-          ♨︎♨︎♨︎♨︎♨︎
-        </motion.div>
-      </motion.div>
-    );
+    return (<Loading loading={loading} paddingTop={80}/>)
   }
 
   return (
