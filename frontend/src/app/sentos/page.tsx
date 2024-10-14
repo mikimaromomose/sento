@@ -14,7 +14,41 @@ import { motion } from "framer-motion";
 
 export default function Sentos() {
   const router = useRouter();
-  const [sentos, setSentos] = useState<Sento[]>([]);
+  // const [sentos, setSentos] = useState<Sento[]>([]);
+  const sentos = [
+        {
+            "id": "5a55efdd-ad25-48b7-83b7-b5ffabcbf082",
+            "name": "小杉湯",
+            "nearest_station": "高円寺",
+            "walking_time": 5,
+            "address": "東京都杉並区高円寺北３丁目３２−１７",
+            "operating_hours_remarks": null
+        },
+      {
+            "id": "4a55efdd-ad25-48b7-83b7-b5ffabcbf082",
+            "name": "なみのゆ",
+            "nearest_station": "高円寺",
+            "walking_time": 5,
+            "address": "東京都杉並区高円寺北2丁目",
+            "operating_hours_remarks": null
+        },
+        {
+            "id": "3a55efdd-ad25-48b7-83b7-b5ffabcbf082",
+            "name": "たからゆ",
+            "nearest_station": "都立家政",
+            "walking_time": 5,
+            "address": "東京都中野区",
+            "operating_hours_remarks": null
+        },
+        {
+            "id": "2a55efdd-ad25-48b7-83b7-b5ffabcbf082",
+            "name": "松本湯",
+            "nearest_station": "中野",
+            "walking_time": 5,
+            "address": "東京都中野区１７",
+            "operating_hours_remarks": null
+        }
+    ]
   const [loading, setLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
 
