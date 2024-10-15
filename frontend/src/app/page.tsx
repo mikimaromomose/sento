@@ -17,16 +17,30 @@ export default function Home() {
     );
   }, []);
   return (
-    <main className={styles.main}>
-      <div className={styles.title}>
-        <Image
+    <>
+      <main className={styles.main}>
+        <div className={styles.title}>
+          <Image
             src="/images/title.png"
             alt="Title Logo"
-            width="250"
-            height="800"
+            layout='fill'
+            objectFit='contain'
+          />
+        </div>
+      </main>
+      <div className={styles.imasugu}>
+        <Image
+            src="/images/imasugu.png"
+            alt="Title Logo"
+            layout='fill'
+            objectFit='contain'
             priority
+            onClick={() => router.push(`/sentos/`)}
+            style={{
+              cursor: 'pointer',
+            }}
           />
       </div>
-    </main>
+    </>
   );
 }

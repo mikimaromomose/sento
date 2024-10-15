@@ -4,10 +4,11 @@
   justify-content: space-between;
   align-items: center;
   padding: 6rem;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .title {
+  height: 80%;
   opacity: 0;
   animation: fade-in 3s;
   animation-fill-mode: forwards;
@@ -19,6 +20,15 @@
   to {
     opacity: 1;
   }
+}
+.imasugu {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 25vw;
+  height: 25vw;
+  max-width: 200px;
+  max-height: 200px;
 }
 
 .description {
