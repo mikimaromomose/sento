@@ -104,12 +104,15 @@ export default function Sentos() {
   }
 
   return (
-    <div>
-      <h1>セントウツカリタイ</h1>
+    <div style={{ backgroundColor: 'white' }}>
+      <header style={{ backgroundColor: '#D4AF37', padding: '60px' }}>
+        <h1 style={{ margin: '0', textAlign: 'center' ,color: 'white' }}>セントウ</h1>
+        <h1 style={{ margin: '0', textAlign: 'center' ,color: 'white' }}>ツカリタイ</h1>
+      </header>
       <Grid container spacing={2}>
         {sentos.map((sento) => (
           <Grid item xs={12} sm={6} md={4} key={sento.id}>
-            <Card>
+            <Card style={{ backgroundColor: 'white' }}>
               <Grid container>
                 <Grid item xs={4}>
                   <CardMedia
@@ -130,13 +133,15 @@ export default function Sentos() {
                     <Typography variant="body2" component="p">
                       {sento.address}
                     </Typography>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => handleDetailClick(sento.id)}
-                    >
-                      詳細
-                    </Button>
+                    <div style={{ textAlign: 'right', marginTop: '16px' }}>
+                     <Button
+                         variant="contained"
+                          style={{ backgroundColor: '#D4AF37', color: 'white', marginBottom: '14px', width: '70%', borderRadius: '10px' }} 
+                          onClick={() => handleDetailClick(sento.id)}
+                       >
+                        詳細
+                      </Button>
+                    </div>
                   </CardContent>
                 </Grid>
               </Grid>
