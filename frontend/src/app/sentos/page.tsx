@@ -47,7 +47,15 @@ export default function Sentos() {
             "walking_time": 5,
             "address": "東京都中野区１７",
             "operating_hours_remarks": null
-        }
+        },
+        {
+          "id": "2a55efdd-ad25-48b7-83b7-b5ffabcbf044",
+          "name": "トンボの湯",
+          "nearest_station": "長野県",
+          "walking_time": 3,
+          "address": "かるいざわ",
+          "operating_hours_remarks": null
+      }
     ]
   const [loading, setLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
