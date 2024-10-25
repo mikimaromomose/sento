@@ -10,7 +10,6 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import { motion } from "framer-motion";
 import Loading from "../components/loading";
 
 export default function Sentos() {
@@ -120,7 +119,7 @@ export default function Sentos() {
                     <div style={{ textAlign: 'right', marginTop: '16px' }}>
                      <Button
                          variant="contained"
-                          style={{ backgroundColor: '#D4AF37', color: 'white', marginBottom: '14px', width: '70%', borderRadius: '10px' }} 
+                          style={{ backgroundColor: '#D4AF37', color: 'white', marginBottom: '14px', width: '70%', borderRadius: '10px' }}
                           onClick={() => handleDetailClick(sento.id)}
                        >
                         詳細

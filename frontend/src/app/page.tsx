@@ -1,9 +1,9 @@
 "use client";
 
+import "./globals.css";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./page.module.css";
-import Loading from "./components/loading";
 import { useEffect } from "react";
 
 export default function Home() {
