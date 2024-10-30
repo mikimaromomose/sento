@@ -30,22 +30,22 @@ const meta: Meta = {
 };
 
 export default meta;
-type ButtonStory = StoryObj<typeof Header>;
+type HeaderStory = StoryObj<typeof Header>;
 
-export const TitleOnly : ButtonStory = {
+export const TitleOnly : HeaderStory = {
   args : {
     logo: true,
   }
 };
 
-export const NoTitle : ButtonStory = {
+export const NoTitle : HeaderStory = {
   args : {
     logo: false,
     leftIcon: "demo"
   }
 };
 
-export const IconsBothSide : ButtonStory = {
+export const IconsBothSide : HeaderStory = {
   args : {
     logo: true,
     leftIcon: "demo",
@@ -53,7 +53,7 @@ export const IconsBothSide : ButtonStory = {
   }
 };
 
-export const AllIcons : ButtonStory = {
+export const AllIcons : HeaderStory = {
   args : {
     logo: true,
     leftIcon: "demo",
