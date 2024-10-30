@@ -35,7 +35,7 @@ const meta: Meta = {
 export default meta;
 type ButtonStory = StoryObj<typeof Button>;
 
-export const Primaty : ButtonStory = {
+export const Primary : ButtonStory = {
   args : {
     text: 'ボタン',
   }
