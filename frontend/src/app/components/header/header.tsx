@@ -5,28 +5,33 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import Image from 'next/image';
 
+
 interface HeaderProps {
-  leftIcon?: "demo" | ((props: { className: string }) => React.ReactElement) | null;
-  logo: boolean;
-  rightIconFirst?: "demo" | ((props: { className: string }) => React.ReactElement) | null;
-  rightIconSecond?: "demo" | ((props: { className: string }) => React.ReactElement) | null;
+  leftIcon?: "demo" | React.ElementType | null;
+  onClickLeftIcon: () => void;
+  logo?: boolean;
+  rightIconFirst?: "demo" | React.ElementType | null;
+  rightIconSecond?: "demo" | React.ElementType | null;
+  onClickRightIconSecond: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({
-  leftIcon = "demo",
+  leftIcon: LeftIcon = "demo",
   logo = true,
-  rightIconFirst = null,
-  rightIconSecond = null
+  onClickLeftIcon,
+  rightIconFirst: RightIconFirst = null,
+  rightIconSecond: RightIconSecond = null,
+  onClickRightIconSecond,
 }) => {
   return (
     <header className={styles.header}>
       <div className={styles.logoContainer}>
-        {leftIcon && (
-          leftIcon === "demo" ? (
+        {LeftIcon && (
+          LeftIcon === "demo" ? (
             <MenuIcon className={styles.icon} />
-          ) : typeof leftIcon === 'function' ? (
-            leftIcon({ className: styles.icon })
-          ) : null
+          ) : (
+            <LeftIcon className={styles.icon} onClick={onClickLeftIcon} ></LeftIcon>
+          )
         )}
         {logo && (
           <div className={styles.titleLogo}>
@@ -42,19 +47,19 @@ const Header: React.FC<HeaderProps> = ({
         )}
       </div>
       <div className={styles.userSection}>
-        {rightIconFirst && (
-          rightIconFirst === "demo" ? (
+        {RightIconFirst && (
+          RightIconFirst === "demo" ? (
             <SearchIcon className={styles.icon} />
-          ) : typeof leftIcon === 'function' ? (
-            rightIconFirst({ className: styles.icon })
-          ) : null
+          ) : (
+            <RightIconFirst className={styles.icon}></RightIconFirst>
+          )
         )}
-        {rightIconSecond && (
-          rightIconSecond === "demo" ? (
+        {RightIconSecond && (
+          RightIconSecond === "demo" ? (
             <PersonIcon className={styles.icon} />
-          ) : typeof leftIcon === 'function' ? (
-            rightIconSecond({ className: styles.icon })
-          ) : null
+          ) : (
+            <RightIconSecond className={styles.icon} onClick={onClickRightIconSecond}></RightIconSecond>
+          )
         )}
       </div>
     </header>

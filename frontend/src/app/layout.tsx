@@ -8,6 +8,14 @@ import "@fontsource/roboto/500.css";
 import "@fontsource/roboto/700.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Header, Menu } from "./components/index";
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
+import PersonIcon from '@mui/icons-material/Person';
+import styles from './layout.module.css';
+import { useEffect, useState } from "react";
+import { useRouter, usePathname } from "next/navigation";
+import { MenuItemsProp } from "./components/menu";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -81,13 +89,67 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const router = useRouter();
+  const pathName = usePathname();
+
+  /** メニューアイテム */
+  const initialMenuItems: MenuItemsProp[] = [
+    {
+      id: 'sentos',
+      label: 'セントウを探す',
+      onClick: () => router.push(`/sentos/`)
+    },
+    {
+      id: 'register',
+      label: '会員登録',
+      onClick: () => router.push(`/register/`)
+    }
+  ];
+  const [menuItems, setMenuItems] = useState(initialMenuItems);
+  useEffect(() => {
+    setMenuItems(
+      menuItems.map(item => {
+        item.isActive = pathName.indexOf(item.id) > 0;
+        return item;
+      })
+    )
+  }, [pathName]);
+
+  /** メニュー */
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   return (
     <html lang="ja">
       <head />
-      <body className={inter.className}>
+      <body
+        className={inter.className}
+        onClick={() => menuOpen && setMenuOpen(false)}
+      >
         <ThemeProvider theme={sentoTheme}>
           <CssBaseline />
-          {children}
+            <>
+              { pathName !== '/' &&
+                <>
+                  <div className={styles.headerWrapper}>
+                    <Header
+                      leftIcon={menuOpen ? CloseIcon : MenuIcon}
+                      onClickLeftIcon={toggleMenu}
+                      rightIconSecond={PersonIcon}
+                      onClickRightIconSecond={() => router.push('/register/')}
+                    />
+                  </div>
+                  {menuOpen &&
+                    <div className={styles.menuOverlay} onClick={() => setMenuOpen(false)}>
+                      <Menu logo={false} items={menuItems} />
+                    </div>
+                  }
+                </>
+              }
+              {children}
+            </>
         </ThemeProvider>
       </body>
     </html>

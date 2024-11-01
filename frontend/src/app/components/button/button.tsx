@@ -1,9 +1,9 @@
 import React from "react";
 import styles from './button.module.css';
-import Icon from '@mui/icons-material/Search';
+import SearchIcon from '@mui/icons-material/Search';
 
 export type ButtonProps = {
-  icon?: "demo" | ((props: { className: string }) => React.ReactElement) | null;
+  icon?: "demo" | React.ElementType | null;
   theme?: "primary"
         | "secondary"
         | "light"
@@ -15,7 +15,7 @@ export type ButtonProps = {
 };
 
 export const Button: React.FC<ButtonProps> = ({
-   icon = null,
+   icon: Icon = null,
    theme = "primary",
    size = "medium",
    width = null,
@@ -24,17 +24,15 @@ export const Button: React.FC<ButtonProps> = ({
 ) => {
   return (
     <button
-      className={`${styles.button} ${styles[theme]} ${styles[size]} ${icon && styles[`with-icon-${size}`]}`}
+      className={`${styles.button} ${styles[theme]} ${styles[size]} ${Icon && styles[`with-icon-${size}`]}`}
       disabled={theme === "disabled"}
       onClick={theme === "disabled" ? undefined : onClick}
       style={width ? { width: width } : undefined}
     >
-      {icon && (
-        icon === "demo"
-          ? <Icon className={`icon-${size}`}/>
-          : typeof icon === 'function'
-            ? icon({ className: `icon-${size}` })
-            : undefined
+      {Icon && (
+        Icon === "demo"
+          ? <SearchIcon className={`icon-${size}`}/>
+          : <Icon className={`icon-${size}` } />
       )}
       <span className={styles.buttonText}>{text}</span>
     </button>

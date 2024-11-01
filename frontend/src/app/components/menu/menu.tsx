@@ -3,7 +3,8 @@ import styles from './menu.module.css';
 import MenuItem from './menu-item';
 import Image from 'next/image';
 
-type MenuItemsProp = {
+export type MenuItemsProp = {
+  id: string;
   label: string;
   isActive?: boolean | undefined;
   isSmall?: boolean | undefined;
@@ -11,20 +12,20 @@ type MenuItemsProp = {
 };
 
 type MenuProps = {
-  logo?: boolean
-  items: Array<MenuItemsProp>
+  logo?: boolean;
+  items: Array<MenuItemsProp>;
 }
 
 const Menu: React.FC<MenuProps> = ({ logo = true, items }) => {
   return (
-    <nav className={styles.menu}>
+    <nav className={styles.menu} onClick={(e) => e.stopPropagation()}>
       <div className={styles.container}>
         {logo &&
           <header className={styles.logoWrapper}>
             <div className={styles.titleLogo}>
               <Image
                 loading="lazy"
-                src="images/logo.png"
+                src="/images/logo.png"
                 width={190}
                 height={24}
                 className={styles.logoImage}

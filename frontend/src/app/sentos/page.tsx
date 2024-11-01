@@ -10,7 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
-import Loading from "../components/loading";
+import { Loading } from "../components/index";
 
 export default function Sentos() {
   const router = useRouter();
