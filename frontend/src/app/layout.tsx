@@ -92,6 +92,12 @@ export default function RootLayout({
   const router = useRouter();
   const pathName = usePathname();
 
+  /** メニュー */
+  const [menuOpen, setMenuOpen] = useState(false);
+  const toggleMenu = () => {
+    setMenuOpen(!menuOpen);
+  };
+
   /** メニューアイテム */
   const initialMenuItems: MenuItemsProp[] = [
     {
@@ -112,14 +118,11 @@ export default function RootLayout({
         item.isActive = pathName.indexOf(item.id) > 0;
         return item;
       })
-    )
+    );
+    setMenuOpen(false);
   }, [pathName]);
 
-  /** メニュー */
-  const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
+
 
   return (
     <html lang="ja">
