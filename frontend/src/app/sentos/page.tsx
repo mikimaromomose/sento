@@ -91,7 +91,7 @@ export default function Sentos() {
   useEffect(() => {
     const fetchSentos = async () => {
       const data = await getSentos();
-      setSentos(data);
+      // setSentos(data);
       setLoading(false);
     };
 
