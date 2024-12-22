@@ -18,81 +18,74 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Loading } from "../components/index";
 
+const DEFAULT_SENTOS: Sento[] = [
+  {
+    id: "5a55efdd-ad25-48b7-83b7-b5ffabcbf082",
+    name: "小杉湯",
+    nearest_station: "高円寺",
+    walking_time: 5,
+    address: "東京都杉並区高円寺北３丁目３２−１７",
+    operating_hours_remarks: null,
+    images: ["小杉湯.jpeg", "小杉湯.jpeg", "小杉湯.jpeg"],
+  },
+  {
+    id: "4a55efdd-ad25-48b7-83b7-b5ffabcbf082",
+    name: "なみのゆ",
+    nearest_station: "高円寺",
+    walking_time: 5,
+    address: "東京都杉並区高円寺北2丁目",
+    operating_hours_remarks: null,
+    images: ["小杉湯.jpeg", "小杉湯.jpeg", "小杉湯.jpeg"],
+  },
+  {
+    id: "3a55efdd-ad25-48b7-83b7-b5ffabcbf082",
+    name: "たからゆ",
+    nearest_station: "都立家政",
+    walking_time: 5,
+    address: "東京都中野区",
+    operating_hours_remarks: null,
+    images: ["小杉湯.jpeg", "小杉湯.jpeg", "小杉湯.jpeg"],
+  },
+  {
+    id: "2a55efdd-ad25-48b7-83b7-b5ffabcbf082",
+    name: "松本湯",
+    nearest_station: "中野",
+    walking_time: 5,
+    address: "東京都中野区１７",
+    operating_hours_remarks: null,
+    images: ["小杉湯.jpeg"],
+  },
+  {
+    id: "2a55efdd-ad25-48b7-83b7-b5ffabcbf044",
+    name: "トンボの湯",
+    nearest_station: "長野県",
+    walking_time: 3,
+    address: "かるいざわ",
+    operating_hours_remarks: null,
+    images: ["小杉湯.jpeg", "小杉湯.jpeg"],
+  },
+];
 export default function Sentos() {
   const router = useRouter();
-  // const [sentos, setSentos] = useState<Sento[]>([]);
-  const sentos = [
-        {
-            "id": "5a55efdd-ad25-48b7-83b7-b5ffabcbf082",
-            "name": "小杉湯",
-            "nearest_station": "高円寺",
-            "walking_time": 5,
-            "address": "東京都杉並区高円寺北３丁目３２−１７",
-            "operating_hours_remarks": null,
-            "images": [
-              "小杉湯.jpeg",
-              "小杉湯.jpeg",
-              "小杉湯.jpeg",
-            ]
-        },
-      {
-            "id": "4a55efdd-ad25-48b7-83b7-b5ffabcbf082",
-            "name": "なみのゆ",
-            "nearest_station": "高円寺",
-            "walking_time": 5,
-            "address": "東京都杉並区高円寺北2丁目",
-            "operating_hours_remarks": null,
-            "images": [
-              "小杉湯.jpeg",
-              "小杉湯.jpeg",
-              "小杉湯.jpeg",
-            ]
-        },
-        {
-            "id": "3a55efdd-ad25-48b7-83b7-b5ffabcbf082",
-            "name": "たからゆ",
-            "nearest_station": "都立家政",
-            "walking_time": 5,
-            "address": "東京都中野区",
-            "operating_hours_remarks": null,
-            "images": [
-              "小杉湯.jpeg",
-              "小杉湯.jpeg",
-              "小杉湯.jpeg",
-            ]
-        },
-        {
-            "id": "2a55efdd-ad25-48b7-83b7-b5ffabcbf082",
-            "name": "松本湯",
-            "nearest_station": "中野",
-            "walking_time": 5,
-            "address": "東京都中野区１７",
-            "operating_hours_remarks": null,
-            "images": [
-              "小杉湯.jpeg"
-            ]
-        },
-        {
-          "id": "2a55efdd-ad25-48b7-83b7-b5ffabcbf044",
-          "name": "トンボの湯",
-          "nearest_station": "長野県",
-          "walking_time": 3,
-          "address": "かるいざわ",
-          "operating_hours_remarks": null,
-          "images": [
-            "小杉湯.jpeg",
-            "小杉湯.jpeg"
-          ]
-      }
-    ]
+  const [sentos, setSentos] = useState<Sento[]>([]);
   const [loading, setLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
 
   useEffect(() => {
     const fetchSentos = async () => {
-      const data = await getSentos();
-      // setSentos(data);
-      setLoading(false);
+      try {
+        const data = await getSentos();
+        if (data && data.length > 0) {
+          setSentos(data);
+        } else {
+          setSentos(DEFAULT_SENTOS); // デフォルトデータを設定
+        }
+      } catch (error) {
+        console.error("データ取得に失敗しました:", error);
+        setSentos(DEFAULT_SENTOS); // デフォルトデータを設定
+      } finally {
+        setLoading(false);
+      }
     };
 
     fetchSentos();
