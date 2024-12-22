@@ -11,9 +11,8 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import { motion } from "framer-motion";
-import Loading from "../components/loading";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; 
+import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
@@ -120,37 +119,37 @@ export default function Sentos() {
       return (
         <div
           className={className}
-          style={{ ...style, display: "block", position: 'absolute', top: '50%', right: '10px', 
-            zIndex: '1', cursor: 'pointer' , right: '-3px'}} 
+          style={{ ...style, display: "block", position: 'absolute', top: '50%', right: '10px',
+            zIndex: '1', cursor: 'pointer' , right: '-3px'}}
             onClick={onClick}
         >
        </div>
      );
     };
-      
+
     const PrevArrow = ({className, style, onClick }) => {
       return (
         <div
           className={className}
-          style={{ ...style, display: "block", position: 'absolute', top: '50%', left: '10px', 
+          style={{ ...style, display: "block", position: 'absolute', top: '50%', left: '10px',
            zIndex: '1', cursor: 'pointer' ,left: '-3px'}}
           onClick={onClick}
         >
         </div>
       );
     };
-         
+
 
     const settings = {
       infinite: false,
       speed: 500,
-      slidesToShow: 1, 
+      slidesToShow: 1,
       slidesToScroll: 1,
-      nextArrow: <NextArrow />,  
-      prevArrow: <PrevArrow />   
+      nextArrow: <NextArrow />,
+      prevArrow: <PrevArrow />
     };
 
-    
+
   return (
     <div style={{ backgroundColor: 'white' }}>
       <header style={{ backgroundColor: '#D4AF37', padding: '70px' }}>
@@ -200,7 +199,7 @@ export default function Sentos() {
                     <div style={{ textAlign: 'right', marginTop: '16px' }}>
                      <Button
                          variant="contained"
-                          style={{ backgroundColor: '#D4AF37', color: 'white', 
+                          style={{ backgroundColor: '#D4AF37', color: 'white',
                             marginBottom: '14px', width: '70%', borderRadius: '12px',
                              transition: 'background-color 0.3s'}}
                           onClick={() => handleDetailClick(sento.id)}
