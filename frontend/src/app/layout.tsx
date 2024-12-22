@@ -106,9 +106,9 @@ export default function RootLayout({
       onClick: () => router.push(`/sentos/`)
     },
     {
-      id: 'register',
-      label: '会員登録',
-      onClick: () => router.push(`/register/`)
+      id: 'login',
+      label: 'ログイン',
+      onClick: () => router.push(`/login/`)
     }
   ];
   const [menuItems, setMenuItems] = useState(initialMenuItems);
@@ -141,7 +141,7 @@ export default function RootLayout({
                       leftIcon={menuOpen ? CloseIcon : MenuIcon}
                       onClickLeftIcon={toggleMenu}
                       rightIconSecond={PersonIcon}
-                      onClickRightIconSecond={() => router.push('/register/')}
+                      onClickRightIconSecond={() => router.push('/login/')}
                     />
                   </div>
                   {menuOpen &&

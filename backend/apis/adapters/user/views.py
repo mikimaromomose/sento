@@ -1,6 +1,7 @@
 import uuid
 
 from django.core.exceptions import ValidationError
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework import status
@@ -37,3 +38,21 @@ class CompleteUserMissionView(APIView):
             return Response({})
         except ValidationError as e:
             return Response({"message": e.message}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoggedInUserView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        social_account = user.socialaccount_set.filter(provider="line").first()
+
+        return Response(
+            {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "line_id": social_account.uid if social_account else None,
+                "line_extra_data": social_account.extra_data if social_account else {},
+            }
+        )

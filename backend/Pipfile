@@ -16,6 +16,7 @@ django-allauth = "*"
 django-cors-headers = "*"
 requests = "*"
 python-dotenv = "*"
+social-auth-app-django = "*"
 
 [dev-packages]
 pytest = "*"

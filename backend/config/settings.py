@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+load_dotenv()
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,6 +36,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    "corsheaders",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -42,11 +47,13 @@ INSTALLED_APPS = [
     "rest_framework",
     "rest_framework.authtoken",
     "dj_rest_auth",
+    "django.contrib.sites",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "allauth.socialaccount.providers.line",
     "dj_rest_auth.registration",
-    "corsheaders",
+    "social_django",
 ]
 
 MIDDLEWARE = [
@@ -145,22 +152,31 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 SITE_ID = 1
 
 # ソーシャルログインのリダイレクト設定
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "http://localhost:3000/sentos"
+ACCOUNT_SIGNUP_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+SOCIALACCOUNT_LOGIN_ON_GET = True
+SOCIALACCOUNT_AUTO_SIGNUP = True
+
+APPEND_SLASH = False
+
 
 # LINEのクライアントIDとクライアントシークレット
 SOCIALACCOUNT_PROVIDERS = {
     "line": {
+        "SCOPE": ["profile", "openid", "email"],
+        "AUTH_PARAMS": {"nonce": "random_string"},
         "APP": {
             "client_id": os.getenv("LINE_CHANNEL_ID"),
             "secret": os.getenv("LINE_CHANNEL_SECRET"),
-        }
+        },
     }
 }
 
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticated",
@@ -168,6 +184,7 @@ REST_FRAMEWORK = {
 }
 
 AUTHENTICATION_BACKENDS = (
+    "social_core.backends.line.LineOAuth2",
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
@@ -184,7 +201,19 @@ SESSION_COOKIE_AGE = 60 * 60 * 24 * 30
 SESSION_SAVE_EVERY_REQUEST = True
 
 # CORS設定
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 # Email backend (for development purposes)
 EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+
+SOCIAL_AUTH_LINE_SCOPE = ["profile", "openid", "email"]
+SOCIAL_AUTH_LOGIN_REDIRECT_URL = "/sentos/"  # ログイン後のリダイレクト先
+SOCIAL_AUTH_LOGIN_ERROR_URL = "/login-error/"  # エラー発生時のリダイレクト先
+
+LOGIN_URL = "login"
+LOGOUT_URL = "logout"
