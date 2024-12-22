@@ -10,9 +10,10 @@ type LoadingProps = {
   width?: number,
   height?: number,
   paddingTop?: number,
+  ahiruNum?: number
 }
 
-export default function Loading({ loading, width = 80, height = 80, paddingTop = 0 }: LoadingProps) {
+export default function Loading({ loading, width = 80, height = 80, paddingTop = 0, ahiruNum = 3 }: LoadingProps) {
   if (loading) {
     return (
       <motion.div
@@ -37,12 +38,15 @@ export default function Loading({ loading, width = 80, height = 80, paddingTop =
             paddingTop: paddingTop
           }}
         >
-          <Image
-            src="/images/loading.png"
-            alt="loading icon"
-            width={width}
-            height={height}
-          />
+          {Array(ahiruNum).fill("").map((_, index) => (
+            <Image
+              key={index}
+              src="/images/loading.png"
+              alt="loading icon"
+              width={width}
+              height={height}
+            />
+          ))}
         </motion.div>
       </motion.div>
     );

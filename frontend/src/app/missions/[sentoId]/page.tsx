@@ -19,7 +19,46 @@ type Mission = {
 
 export default function MissionsPage({ params }: { params: { sentoId: string } }) {
   const { sentoId } = params;
-  const [missions, setMissions] = useState<Mission[]>([]);
+  const initialMissionState = [
+    {
+      id: "1",
+      name: "初めての入浴",
+      description: "銭湯での最初の入浴を完了しよう。",
+      isCompleted: false,
+    },
+    {
+      id: "2",
+      name: "サウナチャレンジ",
+      description: "サウナで5分間耐えよう。",
+      isCompleted: true,
+    },
+    {
+      id: "3",
+      name: "湯冷まし",
+      description: "湯上がりに休憩スペースでゆったりしよう。",
+      isCompleted: false,
+    },
+    {
+      id: "4",
+      name: "地元グルメを楽しもう",
+      description: "銭湯周辺のお店で地元のグルメを楽しもう。",
+      isCompleted: false,
+    },
+    {
+      id: "5",
+      name: "3種のお湯制覇",
+      description: "露天風呂、電気風呂、炭酸風呂にそれぞれ入ろう。",
+      isCompleted: true,
+    },
+    {
+      id: "6",
+      name: "スタンプラリーマスター",
+      description: "銭湯内の全てのミッションを完了しよう。",
+      isCompleted: false,
+    },
+  ];
+
+  const [missions, setMissions] = useState<Mission[]>(initialMissionState);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -44,7 +83,7 @@ export default function MissionsPage({ params }: { params: { sentoId: string } }
       // 成功したらミッションのステータスを更新
       setMissions((prevMissions) =>
         prevMissions.map((mission) =>
-          mission.mission.id === missionId ? { ...mission, isCompleted: true } : mission
+          mission.id === missionId ? { ...mission, isCompleted: true } : mission
         )
       );
     } catch (error) {
@@ -61,23 +100,23 @@ export default function MissionsPage({ params }: { params: { sentoId: string } }
       <h1>ミッション一覧</h1>
       <Grid container spacing={2}>
         {missions.map((mission) => (
-          <Grid item xs={12} sm={6} md={4} key={mission.mission.id}>
+          <Grid item xs={12} sm={6} md={4} key={mission.id}>
             <Card>
               <CardContent>
                 <Typography variant="h5" component="h2">
-                  {mission.mission.name}
+                  {mission.name}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
-                  {mission.mission.description}
+                  {mission.description}
                 </Typography>
-                <Typography variant="body2" color={mission.mission.isCompleted ? "primary" : "error"}>
-                  {mission.mission.isCompleted ? "完了" : "未完了"}
+                <Typography variant="body2" color={mission.isCompleted ? "primary" : "error"}>
+                  {mission.isCompleted ? "完了" : "未完了"}
                 </Typography>
-                {!mission.mission.isCompleted && (
+                {!mission.isCompleted && (
                   <Button
                     variant="contained"
                     color="primary"
-                    onClick={() => handleCompleteMission(mission.mission.id)}
+                    onClick={() => handleCompleteMission(mission.id)}
                   >
                     完了する
                   </Button>

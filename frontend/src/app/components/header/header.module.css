@@ -1,0 +1,40 @@
+.header {
+  justify-content: space-between;
+  align-items: center;
+  background: var(--Background, #f2e7ae);
+  display: flex;
+  flex: 1;
+  padding: 16px;
+  height: 56px;
+  box-sizing: border-box;
+}
+
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  width: 24px;
+  cursor: pointer;
+}
+
+.titleLogo {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: rgba(0, 0, 0, 1);
+  white-space: nowrap;
+  text-align: center;
+  font: 400 24px Material Icons, -apple-system, Roboto, Helvetica, sans-serif;
+}

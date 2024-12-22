@@ -1,0 +1,13 @@
+.headerWrapper {
+  width: 100vw;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.menuOverlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+}

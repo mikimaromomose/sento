@@ -1,3 +1,130 @@
+/* sento thema variables */
+:root {
+  /** color **/
+  /* primary */
+  --var-color-primary: #2A5CBF;
+  --var-color-prinary-dark: #234CA4;
+  --var-volor-prinary-light: #306EBF;
+  /* danger */
+  --var-color-danger: #B60226;
+  --var-color-danger-dark: #980220;
+  --var-color-danger-light: #D2022C;
+  /* background */
+  --var-color-background: #F2E7AE;
+  /* secondary */
+  --var-color-secondary: #50A0BF;
+  /* accent */
+  --var-color-accent: #D9BC66;
+  /** text **/
+  /* primary */
+  --var-color-text-primary: #333333;
+  /* secondary */
+  --var-color-text-secondary: #666666;
+  /* placeholder */
+  --var-color-text-placeholder: #CCCCCC;
+  /* light */
+  --var-color-text-light: #F7F7F7;
+  /** mono tone **/
+  /* 06 */
+  --var-color-mono-06: #3C3240;
+  /* 05 */
+  --var-color-mono-05: #756A79;
+  /* 04 */
+  --var-color-mono-04: #A69EA6;
+  /* 03 */
+  --var-color-mono-03: #C3BEC3;
+  /* 02 */
+  --var-color-mono-02: #E3E0E3;
+  /* 01 */
+  --var-color-mono-01: #F3F0F4;
+  /* 00 */
+  --var-color-mono-00: #F3F0F4;
+
+  /** font **/
+  /* family */
+  --var-font-family: Roboto;
+}
+
+/* fonts */
+.h1 {
+  font-family: var(--var-font-family);
+  font-size: 48px;
+  font-weight: 300;
+  line-height: 62.4px;
+}
+.h2 {
+  font-family: var(--var-font-family);
+  font-size: 40px;
+  font-weight: 300;
+  line-height: 52px;
+}
+.h3 {
+  font-family: var(--var-font-family);
+  font-size: 36px;
+  font-weight: 400;
+  line-height: 46.8px;
+}
+.h4 {
+  font-family: var(--var-font-family);
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 36px;
+}
+.h5 {
+  font-family: var(--var-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 24px;
+}
+.h6 {
+  font-family: var(--var-font-family);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+}
+.subtitle1 {
+  font-family: var(--var-font-family);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20.8px;
+}
+.subtitle2 {
+  font-family: var(--var-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 18.2px;
+}
+.body1 {
+  font-family: var(--var-font-family);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 24px;
+}
+.body2 {
+  font-family: var(--var-font-family);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 18.2px;
+}
+.button {
+  font-family: var(--var-font-family);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+}
+.caption {
+  font-family: var(--var-font-family);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+.overline {
+  font-family: var(--var-font-family);
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
 /*:root {*/
 /*  --max-width: 1100px;*/
 /*  --border-radius: 12px;*/
