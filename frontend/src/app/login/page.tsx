@@ -1,6 +1,8 @@
 "use client"; // クライアントコンポーネントであることを宣言
 
 import React, { useState, useEffect } from "react";
+import Card from "../components/card/card"
+import LineButton from "../components/line/button";
 import { Button, Typography, CircularProgress, Container } from "@mui/material";
 
 const LineLoginButton = () => {
@@ -58,17 +60,17 @@ const LineLoginButton = () => {
   if (loading) {
     // ローディング中の表示
     return (
-      <Container style={{ textAlign: "center", marginTop: "20px" }}>
+      <Card maxWidth={650}>
         <CircularProgress />
         <Typography variant="h6" style={{ marginTop: "10px" }}>
           読み込み中...
         </Typography>
-      </Container>
+      </Card>
     );
   }
 
   return (
-    <Container style={{ textAlign: "center", marginTop: "20px" }}>
+    <Card maxWidth={650}>
       {isLoggedIn ? (
         <>
           <Typography variant="h5">ようこそ、{username}さん！</Typography>
@@ -86,12 +88,10 @@ const LineLoginButton = () => {
           <Typography variant="h6" style={{ marginBottom: "20px" }}>
             ログインしていません
           </Typography>
-          <Button onClick={handleLogin} variant="contained" color="primary">
-            LINEでログイン
-          </Button>
+          <LineButton onLogin={handleLogin} />
         </>
       )}
-    </Container>
+    </Card>
   );
 };
 
