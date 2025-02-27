@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Card from "../components/card/card"
 import LineButton from "../components/line/button";
 import { Button, Typography, CircularProgress, Container } from "@mui/material";
+import { Checkbox } from "../components/checkbox/checkbox";
 
 const LineLoginButton = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

@@ -1,0 +1,31 @@
+.checkboxContainer {
+  display: flex;
+  max-width: 16px;
+  flex-direction: column;
+}
+
+.checkboxInput {
+  border: 2px solid var(--Mono-06, #3c3240);
+  background: var(--Mono-00, #fff);
+  background-color: var(--Mono-00, #fff);
+  display: flex;
+  min-height: 15px;
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkboxCheck {
+  content: '';
+  position: absolute;
+  border-right: 2px solid var(--Mono-06, #3c3240);
+  border-bottom: 2px solid var(--Mono-06, #3c3240);
+  transform: rotate(45deg);
+  width: 6px;
+  height: 10px;
+  top: -1px;
+  left: 4px;
+  margin-top: 1px;
+}
