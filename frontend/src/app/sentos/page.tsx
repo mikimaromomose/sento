@@ -3,29 +3,24 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getSentos, Sento } from "@/utils/fetchings";
-import { Button } from "@/app/components/button/button";
 import React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-import { motion } from "framer-motion";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Loading } from "../components/index";
+import List from "@/app/components/list/list";
+import { ListItem } from "@/app/components/list/list";
 
-const DEFAULT_SENTOS: Sento[] = [
+// ListItemとSentoの型を合わせるためのインターフェース拡張
+interface SentoListItem extends ListItem {
+  nearest_station?: string;
+  walking_time?: number;
+  address?: string;
+}
+
+const DEFAULT_SENTOS: SentoListItem[] = [
   {
     id: "5a55efdd-ad25-48b7-83b7-b5ffabcbf082",
     name: "小杉湯",
     nearest_station: "高円寺",
     walking_time: 5,
     address: "東京都杉並区高円寺北３丁目３２−１７",
-    operating_hours_remarks: null,
     images: ["小杉湯.jpeg", "小杉湯.jpeg", "小杉湯.jpeg"],
   },
   {
@@ -34,7 +29,6 @@ const DEFAULT_SENTOS: Sento[] = [
     nearest_station: "高円寺",
     walking_time: 5,
     address: "東京都杉並区高円寺北2丁目",
-    operating_hours_remarks: null,
     images: ["小杉湯.jpeg", "小杉湯.jpeg", "小杉湯.jpeg"],
   },
   {
@@ -43,7 +37,6 @@ const DEFAULT_SENTOS: Sento[] = [
     nearest_station: "都立家政",
     walking_time: 5,
     address: "東京都中野区",
-    operating_hours_remarks: null,
     images: ["小杉湯.jpeg", "小杉湯.jpeg", "小杉湯.jpeg"],
   },
   {
@@ -52,7 +45,6 @@ const DEFAULT_SENTOS: Sento[] = [
     nearest_station: "中野",
     walking_time: 5,
     address: "東京都中野区１７",
-    operating_hours_remarks: null,
     images: ["小杉湯.jpeg"],
   },
   {
@@ -61,13 +53,12 @@ const DEFAULT_SENTOS: Sento[] = [
     nearest_station: "長野県",
     walking_time: 3,
     address: "かるいざわ",
-    operating_hours_remarks: null,
     images: ["小杉湯.jpeg", "小杉湯.jpeg"],
   },
 ];
 export default function Sentos() {
   const router = useRouter();
-  const [sentos, setSentos] = useState<Sento[]>([]);
+  const [sentos, setSentos] = useState<SentoListItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [showContent, setShowContent] = useState(false);
 
@@ -76,13 +67,23 @@ export default function Sentos() {
       try {
         const data = await getSentos();
         if (data && data.length > 0) {
-          setSentos(data);
+          // Sentoの配列をSentoListItemの配列に変換
+          const convertedData: SentoListItem[] = data.map(sento => ({
+            id: sento.id,
+            name: sento.name,
+            nearest_station: sento.nearest_station,
+            walking_time: sento.walking_time,
+            address: sento.address,
+            images: sento.images || [],
+            description: `${sento.nearest_station}から徒歩${sento.walking_time}分`
+          }));
+          setSentos(convertedData);
         } else {
-          setSentos(DEFAULT_SENTOS); // デフォルトデータを設定
+          setSentos(DEFAULT_SENTOS);
         }
       } catch (error) {
         console.error("データ取得に失敗しました:", error);
-        setSentos(DEFAULT_SENTOS); // デフォルトデータを設定
+        setSentos(DEFAULT_SENTOS);
       } finally {
         setLoading(false);
       }
@@ -98,49 +99,9 @@ export default function Sentos() {
     return () => clearTimeout(animationTimeout);
   }, []);
 
-  const handleDetailClick = (sentoId: string) => {
-    router.push(`/missions/${sentoId}`);
+  const handleDetailClick = (id: string | number) => {
+    router.push(`/missions/${id}`);
   };
-
-  // if (loading && !showContent) {
-  if (!showContent) {
-    return (<Loading loading={loading} paddingTop={80}/>)
-  }
-
-   // Sliderの設定
-    const NextArrow = ({ className, style, onClick }) => {
-      return (
-        <div
-          className={className}
-          style={{ ...style, display: "block", position: 'absolute', top: '50%', right: '10px',
-            zIndex: '1', cursor: 'pointer' , right: '-3px'}}
-            onClick={onClick}
-        >
-       </div>
-     );
-    };
-
-    const PrevArrow = ({className, style, onClick }) => {
-      return (
-        <div
-          className={className}
-          style={{ ...style, display: "block", position: 'absolute', top: '50%', left: '10px',
-           zIndex: '1', cursor: 'pointer' ,left: '-3px'}}
-          onClick={onClick}
-        >
-        </div>
-      );
-    };
-
-
-    const settings = {
-      infinite: false,
-      speed: 500,
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      nextArrow: <NextArrow />,
-      prevArrow: <PrevArrow />
-    };
 
 
   return (
@@ -160,51 +121,13 @@ export default function Sentos() {
        }}
       />
       </header>
-      <Grid container spacing={2}>
-        {sentos.map((sento) => (
-          <Grid item xs={12} sm={6} md={4} key={sento.id}>
-            <Card style={{ backgroundColor: 'white' , margin: '10px' }}>
-              <Grid container>
-                <Grid item xs={5}>
-                <Slider {...settings}>
-                  {sento.images.map((image, index) => (
-                    <CardMedia
-                      key={index}
-                      component="img"
-                      height="140"
-                      image={image || "default-image.jpeg"} // 銭湯の画像URLを指定
-                      alt={`${sento.name}の画像`}
-                    />
-                  ))}
-                </Slider>
-                </Grid>
-                <Grid item xs={7}>
-                  <CardContent>
-                    <Typography variant="h5" component="h2">
-                      {sento.name}
-                    </Typography>
-                    <Typography color="textSecondary">
-                      {sento.nearest_station}から徒歩{sento.walking_time}分
-                    </Typography>
-                    <Typography variant="body2" component="p">
-                      {sento.address}
-                    </Typography>
-                    <div style={{ textAlign: 'right', marginTop: '16px' }}>
-                     <Button
-                         theme="primary"
-                         size="medium"
-                         width="70%"
-                         text="詳細"
-                         onClick={() => handleDetailClick(sento.id)}
-                       />
-                    </div>
-                  </CardContent>
-                </Grid>
-              </Grid>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
+      <List
+        items={sentos}
+        loading={loading}
+        showContent={showContent}
+        onItemClick={handleDetailClick}
+        buttonText="詳細"
+      />
     </div>
   );
 

@@ -5,6 +5,7 @@ import Card from "../components/card/card"
 import LineButton from "../components/line/button";
 import { Button, Typography, CircularProgress, Container } from "@mui/material";
 import { Checkbox } from "../components/checkbox/checkbox";
+import LineLogin from "../components/line/line-login";
 
 const LineLoginButton = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -86,10 +87,7 @@ const LineLoginButton = () => {
         </>
       ) : (
         <>
-          <Typography variant="h6" style={{ marginBottom: "20px" }}>
-            ログインしていません
-          </Typography>
-          <LineButton onLogin={handleLogin} />
+          <LineLogin onClick={handleLogin} />
         </>
       )}
     </Card>

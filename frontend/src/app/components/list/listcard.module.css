@@ -1,0 +1,61 @@
+.card {
+  flex-direction: column;
+  width: 350px;
+  padding: 10px;
+  display: flex;
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.cardImageContainer {
+  width: 100%;
+  position: relative;
+}
+
+.cardImage {
+  border-radius: 4px;
+  width: 100%;
+  height: 185px;
+  margin: 16px 0;
+  object-fit: cover;
+}
+.cardContent {
+  width: 100%;
+  padding: 0;
+}
+.cardTitle {
+  color: var(--var-color-text-primary);
+  letter-spacing: 0.15px;
+  margin-bottom: 8px;
+  font-family: var(--var-font-family), sans-serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 20.8px;
+  margin-top: 0;
+}
+.cardDescription {
+  color: var(--var-color-text-secondary);
+  letter-spacing: 0.4px;
+  font-family: var(--var-font-family), sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  margin: 0;
+  margin-bottom: 8px;
+}
+.cardSubDescription {
+  color: var(--var-color-text-secondary);
+  letter-spacing: 0.4px;
+  font-family: var(--var-font-family), sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 14px;
+  margin: 0;
+  margin-bottom: 12px;
+}
+.cardButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}

@@ -4,6 +4,7 @@ export type Sento = {
   nearest_station: string;
   walking_time: number;
   address: string;
+  images?: string[];
 };
 
 export async function getSentos(params = {}): Promise<Sento[]> {
