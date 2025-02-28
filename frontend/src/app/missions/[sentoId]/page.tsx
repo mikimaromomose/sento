@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getUserMissions } from "@/utils/fetchings";
-import Button from "@mui/material/Button";
+import { Button } from "@/app/components/button/button";
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -114,12 +114,10 @@ export default function MissionsPage({ params }: { params: { sentoId: string } }
                 </Typography>
                 {!mission.isCompleted && (
                   <Button
-                    variant="contained"
-                    color="primary"
+                    theme="primary"
+                    text="完了する"
                     onClick={() => handleCompleteMission(mission.id)}
-                  >
-                    完了する
-                  </Button>
+                  />
                 )}
               </CardContent>
             </Card>

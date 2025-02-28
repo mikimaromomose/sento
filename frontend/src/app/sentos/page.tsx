@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getSentos, Sento } from "@/utils/fetchings";
-import Button from "@mui/material/Button";
+import { Button } from "@/app/components/button/button";
 import React from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -191,14 +191,12 @@ export default function Sentos() {
                     </Typography>
                     <div style={{ textAlign: 'right', marginTop: '16px' }}>
                      <Button
-                         variant="contained"
-                          style={{ backgroundColor: '#D4AF37', color: 'white',
-                            marginBottom: '14px', width: '70%', borderRadius: '12px',
-                             transition: 'background-color 0.3s'}}
-                          onClick={() => handleDetailClick(sento.id)}
-                       >
-                        詳細
-                      </Button>
+                         theme="primary"
+                         size="medium"
+                         width="70%"
+                         text="詳細"
+                         onClick={() => handleDetailClick(sento.id)}
+                       />
                     </div>
                   </CardContent>
                 </Grid>
