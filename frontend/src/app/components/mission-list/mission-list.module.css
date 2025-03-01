@@ -1,0 +1,31 @@
+.container {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px 56px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+@media (width<=1024px) {
+  .container {
+    max-width: 90%;
+    padding: 0 15px 40px;
+  }
+}
+
+@media (width<=768px) {
+  .container {
+    max-width: 95%;
+    padding: 0 10px 32px;
+  }
+}
+
+@media (width<=640px) {
+  .container {
+    max-width: 100%;
+    padding: 0 5px 28px;
+    grid-template-columns: 1fr;
+  }
+}

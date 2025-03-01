@@ -1,0 +1,9 @@
+.pageContainer {
+  padding: 10px;
+  background-color: white;
+  text-align: center;
+  width: 100%;
+  height: calc(100vh - 56px);
+  display: flex;
+  justify-content: center;
+}

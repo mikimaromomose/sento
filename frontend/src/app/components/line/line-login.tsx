@@ -11,7 +11,7 @@ interface LineLoginProps {
 function LineLogin({ onClick }: LineLoginProps) {
   const [check, setCheck] = React.useState(false);
   return (
-    <>
+    <div className={styles.background}>
       <section className={styles.container}>
         <p className={styles.message}>
           <span>LINEで登録すると、</span>
@@ -30,7 +30,7 @@ function LineLogin({ onClick }: LineLoginProps) {
           <LineLoginButton onLogin={onClick} />
         </div>
       </section>
-    </>
+    </div>
   );
 }
 

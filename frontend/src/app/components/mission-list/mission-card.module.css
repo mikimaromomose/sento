@@ -1,0 +1,66 @@
+.missionCard {
+  border-bottom: 1px solid #00000040;
+  flex-direction: column;
+  padding: 16px 0;
+  display: flex;
+}
+
+@media (width<=640px) {
+  .missionCard {
+    padding: 12px 0;
+  }
+}
+
+.missionHeader {
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  display: flex;
+}
+
+.missionTitle {
+  color: var(--var-color-secondary);
+  letter-spacing: 0.15px;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 130%;
+}
+
+.missionDescription {
+  color: var(--var-color-text-primary);
+  letter-spacing: 0.4px;
+  margin-bottom: 8px;
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+@media (width<=640px) {
+  .missionDescription {
+    font-size: 11px;
+    line-height: 15px;
+  }
+}
+
+.buttonWrapper {
+  justify-content: center;
+  padding-top: 4px;
+  display: flex;
+}
+
+.challengeButton {
+  color: var(--var-color-text-light);
+  letter-spacing: 1.25px;
+  text-transform: uppercase;
+  cursor: pointer;
+  background-color: var(--var-color-mono-06);
+  border-radius: 6px;
+  padding: 6px 14px;
+  font-family: Roboto, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 16px;
+  border: none;
+}
