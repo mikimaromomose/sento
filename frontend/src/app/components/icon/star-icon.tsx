@@ -7,7 +7,7 @@ interface StarIconProps {
 
 const StarIcon: React.FC<StarIconProps> = ({
   size = 24,
-  color = "#D9BC66",
+  color = "#FFF",
 }) => {
   return (
     <svg

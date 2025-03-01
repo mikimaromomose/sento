@@ -5,7 +5,7 @@ interface PageContainerProps {
   children: React.ReactNode;
 }
 
-const Card: React.FC<PageContainerProps> = ({ children }) => {
+const PageContainer: React.FC<PageContainerProps> = ({ children }) => {
   return (
     <div
       className={styles.pageContainer}
@@ -18,4 +18,4 @@ const Card: React.FC<PageContainerProps> = ({ children }) => {
   );
 };
 
-export default Card;
+export default PageContainer;

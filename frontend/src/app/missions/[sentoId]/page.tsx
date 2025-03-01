@@ -1,25 +1,15 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { getUserMissions } from "@/utils/fetchings";
-import { Button } from "@/app/components/button/button";
 import React from "react";
-import Card from "@mui/material/Card";
-import CardContent from "@mui/material/CardContent";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
-
-type Mission = {
-  id: string;
-  name: string;
-  description: string;
-  isCompleted: boolean;
-};
+import PageContainer from "@/app/components/page-container/page-container";
+import MissionList, { Mission } from "@/app/components/mission-list/mission-list";
+import MissionFooter from "@/app/components/mission-list/mission-footer";
 
 export default function MissionsPage({ params }: { params: { sentoId: string } }) {
   const { sentoId } = params;
-  const initialMissionState = [
+  const initialMissionState: Mission[] = [
     {
       id: "1",
       name: "初めての入浴",
@@ -96,35 +86,20 @@ export default function MissionsPage({ params }: { params: { sentoId: string } }
   }
 
   return (
-    <div>
-      <h1>ミッション一覧</h1>
-      <Grid container spacing={2}>
-        {missions.map((mission) => (
-          <Grid item xs={12} sm={6} md={4} key={mission.id}>
-            <Card>
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {mission.name}
-                </Typography>
-                <Typography variant="body2" color="textSecondary">
-                  {mission.description}
-                </Typography>
-                <Typography variant="body2" color={mission.isCompleted ? "primary" : "error"}>
-                  {mission.isCompleted ? "完了" : "未完了"}
-                </Typography>
-                {!mission.isCompleted && (
-                  <Button
-                    theme="primary"
-                    text="完了する"
-                    onClick={() => handleCompleteMission(mission.id)}
-                  />
-                )}
-              </CardContent>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
-    </div>
+    <>
+      <PageContainer>
+        <MissionList
+          list={missions}
+          handleChallengeClick={handleCompleteMission}
+          handleStarClick={(_: string) => {}}
+        />
+      </PageContainer>
+      <MissionFooter
+          handleClickTsukaritai={() => {}}
+          tsukaritai={24}
+          officialSiteUrl="http://google.com"
+        />
+    </>
   );
 }
 

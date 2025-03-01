@@ -1,52 +1,72 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import MissionCard from './mission-card';
+import { userEvent, within } from '@storybook/test';
 
 const meta: Meta<typeof MissionCard> = {
-  title: 'Components/MissionCard',
+  title: 'Components/MissionList/MissionCard',
   component: MissionCard,
   parameters: {
-    layout: 'centered',
+    layout: 'padded',
   },
   tags: ['autodocs'],
   argTypes: {
-    title: { control: 'text' },
-    description: { control: 'text' },
-    showStar: { control: 'boolean' },
-    onChallengeClick: { action: 'clicked' },
+    title: {
+      control: 'text',
+    },
+    description: {
+      control: 'text',
+    },
+    showStar: {
+      control: 'boolean',
+    },
+    isCompleted: {
+      control: 'boolean',
+    },
+    onChallengeClick: {
+      action: 'challengeClicked',
+    },
+    onStarClick: {
+      action: 'starClicked',
+    },
   },
 };
-
 export default meta;
+
 type Story = StoryObj<typeof MissionCard>;
 
 export const Default: Story = {
   args: {
-    title: 'ミッションタイトル',
-    description: '説明文が入ります。これはミッションの詳細な説明です。ユーザーがこのミッションを完了すると特典が得られます。',
-    showStar: true,
-  },
-};
-
-export const WithoutStar: Story = {
-  args: {
-    title: 'スター無しミッション',
-    description: 'このミッションにはスターアイコンが表示されません。通常のミッションとして表示されます。',
+    title: '温泉の基本マナーを学ぶ',
+    description: '入浴前のシャワーやタオルの取り扱いなど、基本的な温泉マナーを習得しましょう。',
     showStar: false,
+    isCompleted: false,
   },
 };
 
-export const LongTitle: Story = {
+export const WithStar: Story = {
   args: {
-    title: 'これは非常に長いミッションタイトルです。表示がどうなるか確認するためのサンプルです。',
-    description: '説明文はこちらです。タイトルが長い場合でも適切に表示されるかテストします。',
+    ...Default.args,
+    showStar: true,
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const star = await canvas.getByRole('button', { hidden: true });
+    await userEvent.click(star);
+  },
+};
+
+export const CompletedMission: Story = {
+  args: {
+    ...Default.args,
+    isCompleted: true,
     showStar: true,
   },
 };
 
-export const LongDescription: Story = {
+export const WithoutChallengeButton: Story = {
   args: {
-    title: '長い説明のミッション',
-    description: 'これは非常に長い説明文です。長い説明文がどのように表示されるかをテストするためのサンプルテキストです。ミッションカードのレイアウトが崩れないことを確認します。テキストが長くなっても適切に折り返されて表示されるべきです。このようなケースでもUIが美しく保たれることが重要です。',
-    showStar: true,
+    ...Default.args,
+    isCompleted: true,
+    onChallengeClick: undefined,
   },
 };

@@ -3,63 +3,40 @@
 import React from "react";
 import styles from "./mission-list.module.css";
 import MissionCard from "./mission-card";
+import Headline from "../text/headline";
 
-interface Mission {
+export type Mission = {
   id: string;
-  title: string;
+  name: string;
   description: string;
-  showStar: boolean;
+  showStar?: boolean;
+  isCompleted: boolean
+}
+export interface MissionListProps {
+  list: Mission[];
+  handleChallengeClick: (missionId: string) => void;
+  handleStarClick: (missionId: string) => void
 }
 
-const MissionList: React.FC = () => {
-  // Sample mission data
-  const missions: Mission[] = [
-    {
-      id: "1",
-      title: "ミッションメイ",
-      description:
-        "説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が",
-      showStar: true,
-    },
-    {
-      id: "2",
-      title: "ミッションメイ",
-      description:
-        "説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が",
-      showStar: true,
-    },
-    {
-      id: "3",
-      title: "ミッションメイ",
-      description:
-        "説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が入ります説明文が",
-      showStar: false,
-    },
-  ];
-
-  const handleChallengeClick = (missionId: string) => {
-    console.log(`Challenge clicked for mission ${missionId}`);
-    // Add your challenge logic here
-  };
+const MissionList: React.FC<MissionListProps> = ({ list, handleChallengeClick, handleStarClick}) => {
 
   return (
-    <>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-        rel="stylesheet"
-      />
+    <div className={styles.wrapper}>
+      <Headline text={`ミッション一覧`} />
       <section className={styles.container}>
-        {missions.map((mission) => (
+        {list.map((mission) => (
           <MissionCard
             key={mission.id}
-            title={mission.title}
+            title={mission.name}
             description={mission.description}
             showStar={mission.showStar}
+            isCompleted={mission.isCompleted}
             onChallengeClick={() => handleChallengeClick(mission.id)}
+            onStarClick={() => handleStarClick(mission.id)}
           />
         ))}
       </section>
-    </>
+    </div>
   );
 };
 

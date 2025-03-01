@@ -3,7 +3,8 @@
   background-color: white;
   text-align: center;
   width: 100%;
-  height: calc(100vh - 56px);
+  min-height: calc(100vh - 56px);
   display: flex;
   justify-content: center;
+  padding-bottom: 70px; /* MissionFooterの高さ + paddingに合わせて調整 */
 }
